@@ -29,6 +29,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: target/*.jar
         target: /home/ubuntu/bokgi
+        strip_components: 1
 
     - name: Run App on Server
       uses: appleboy/ssh-action@master
@@ -37,5 +38,4 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          pkill -f nlp-0.0.1.jar || true
-          nohup java -jar /home/ubuntu/bokgi/nlp-0.0.1.jar > /home/ubuntu/bokgi/nlp.log 2>&1 &
+          bash /home/ubuntu/bokgi/start-nlp.sh
