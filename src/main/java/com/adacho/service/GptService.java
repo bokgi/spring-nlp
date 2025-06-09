@@ -108,7 +108,7 @@ public class GptService {
 		System.out.println(gptResponse);
 		
 		List<String> gptResponseList = splitGptResponse(gptResponse);
-		List<RestaurantDto> filteredRestaurantList = filterRestaurantsByGptResponse(gptResponse, restaurantList);
+		List<RestaurantInfo> filteredRestaurantList = filterRestaurantsByGptResponse(gptResponse, restaurantList);
 		
 		GptResponseDto gptResponseDto = new GptResponseDto();
 		
@@ -185,7 +185,7 @@ public class GptService {
 	}
 
 	
-	public List<RestaurantDto> filterRestaurantsByGptResponse(String gptResponse, List<RestaurantDto> restaurantList) {
+	public List<RestaurantInfo> filterRestaurantsByGptResponse(String gptResponse, List<RestaurantInfo> restaurantList) {
 	    // GPT 응답에서 추천된 식당 이름 리스트 추출
 	    List<String> recommendedNames = extractRecommendedRestaurantNames(gptResponse);
 
