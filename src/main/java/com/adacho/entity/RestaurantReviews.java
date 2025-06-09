@@ -15,8 +15,7 @@ public class RestaurantReviews {
 	
 	@Id
 	private Integer id;
+	@Column
 	private String review;
 	
-	@Column(name="restaurant_id")
-	private Integer restaurantId;
 }
