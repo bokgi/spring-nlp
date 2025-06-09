@@ -49,7 +49,7 @@ public class GptService {
 			.append(", 주소: ").append(restaurant.getRoadAddressName()).append(", 카테고리: ").append(restaurant.getCategoryName())
 			.append(", 평점: ").append(restaurant.getRating()).append(", 후기: ");
 			
-			List<RestaurantReviews> reviews = reviewRepository.findByRestaurantId(recommandList.get(i));
+			List<RestaurantReviews> reviews = reviewRepository.findAllById(recommandList.get(i));
 
 			for(RestaurantReviews review : reviews) {
 				sb.append(" ").append(review.getReview()).append(" /");

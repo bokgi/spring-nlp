@@ -9,5 +9,5 @@ import com.adacho.entity.RestaurantReviews;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<RestaurantReviews, Integer>{
-	List<RestaurantReviews> findByRestaurantId(Integer restaurantId);
+	List<RestaurantReviews> findAllById(Integer id);
 }
