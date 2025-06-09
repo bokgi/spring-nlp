@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class RestaurantInfo {
 	
+	@Id
 	@Column(name="restaurant_id") 
 	private Integer restaurantId;
 	
