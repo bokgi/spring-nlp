@@ -63,9 +63,9 @@ public class InputService {
 		return recommandList;
 	}
 
-	public List<RestaurantDto> getRestaurantInfo(List<Integer> recommandList) {
+	public List<RestaurantInfo> getRestaurantInfo(List<Integer> recommandList) {
 
-		List<RestaurantDto> restaurantList = new ArrayList<>();
+		List<RestaurantInfo> restaurantList = new ArrayList<>();
 
 		for (Integer id : recommandList) {
 			System.out.println("InputService id: "+ id);
@@ -74,10 +74,7 @@ public class InputService {
 			System.out.println("**InputService**: " + optionalRestaurantInfo.isPresent());
 			if (optionalRestaurantInfo.isPresent()) {
 				restaurantInfo = optionalRestaurantInfo.get();
-				RestaurantDto restaurantDto = new RestaurantDto(restaurantInfo.getId(), restaurantInfo.getX(), restaurantInfo.getY(),
-						restaurantInfo.getPlaceName(), restaurantInfo.getPlaceUrl(), restaurantInfo.getRoadAddressName(), restaurantInfo.getPhone(), restaurantInfo.getCategoryName(),
-						restaurantInfo.getRating(), restaurantInfo.getImgUrl());
-				restaurantList.add(restaurantDto);
+				restaurantList.add(restaurantInfo);
 			}
 		}
 

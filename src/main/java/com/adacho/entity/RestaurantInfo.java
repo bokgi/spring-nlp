@@ -15,6 +15,9 @@ public class RestaurantInfo {
 	@Id
 	private Integer id;
 	
+	@Column(name="restaurant_id") 
+	private Integer restaurantId;
+	
 	@Column(name="category_name")
 	private String categoryName;
 	

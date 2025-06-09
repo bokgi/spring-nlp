@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adacho.config.OpenAiProperties;
 import com.adacho.dto.GptResponseDto;
 import com.adacho.dto.RestaurantDto;
+import com.adacho.entity.RestaurantInfo;
 import com.adacho.entity.RestaurantReviews;
 import com.adacho.repository.ReviewRepository;
 
@@ -37,15 +38,15 @@ public class GptService {
 		
 		int i = 0;
 		
-		List<RestaurantDto> restaurantList = inputService.getRestaurantInfo(recommandList);
+		List<RestaurantInfo> restaurantList = inputService.getRestaurantInfo(recommandList);
 		restaurantList.sort((a, b) -> Double.compare(b.getRating(), a.getRating()));
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("다음은 평점 내림차순으로 정렬된 후보 식당 목록입니다.\n");
 		
-		for(RestaurantDto restaurant : restaurantList) {
+		for(RestaurantInfo restaurant : restaurantList) {
 			sb.append("- 이름: ").append(restaurant.getPlaceName())
-			.append(", 주소: ").append(restaurant.getAddress()).append(", 카테고리: ").append(restaurant.getCategory())
+			.append(", 주소: ").append(restaurant.getRoadAddressName()).append(", 카테고리: ").append(restaurant.getCategoryName())
 			.append(", 평점: ").append(restaurant.getRating()).append(", 후기: ");
 			
 			List<RestaurantReviews> reviews = reviewRepository.findByRestaurantId(recommandList.get(i));
