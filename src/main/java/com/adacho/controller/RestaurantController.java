@@ -20,7 +20,7 @@ public class RestaurantController {
 	
     @GetMapping("/search")
     public ResponseEntity<RestaurantInfo> getRestaurantById(@RequestParam int id) {
-        return restaurantRepository.findById(id)
+        return restaurantRepository.findByRestaurantId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
