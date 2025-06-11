@@ -1,11 +1,18 @@
 package com.adacho.util;
 
-import io.jsonwebtoken.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
+import com.adacho.exception.TokenExpiredException;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
 
 @Component
 public class JwtUtil {
@@ -26,7 +33,7 @@ public class JwtUtil {
             return expiration.after(new Date());
         } catch (ExpiredJwtException e) {
             System.out.println("토큰이 만료되었습니다.");
-            return false;
+            throw new TokenExpiredException ("로그인이 만료되었습니다. 다시 로그인해주세요.");
         }
     }
 

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.adacho.exception.TokenExpiredException;
 import com.adacho.util.JwtUtil;
 
 import io.jsonwebtoken.io.IOException;
@@ -29,19 +30,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
-            if (jwtUtil.isTokenValid(token)) {
-                // 토큰에서 사용자 정보 추출
-                String userId = jwtUtil.getUserIdFromToken(token);
+            try {
+                if (jwtUtil.isTokenValid(token)) {
+                    // 토큰에서 사용자 정보 추출
+                    String userId = jwtUtil.getUserIdFromToken(token);
 
-                // 인증 객체 생성 (예: UsernamePasswordAuthenticationToken)
-                UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(userId, null, List.of());
+                    // 인증 객체 생성 (예: UsernamePasswordAuthenticationToken)
+                    UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(userId, null, List.of());
 
-                // SecurityContext에 등록
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                    // SecurityContext에 등록
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }	
+            }catch (TokenExpiredException e) {
+            	sendErrorResponse(response, 403, e.getMessage());
             }
         }
         filterChain.doFilter(request, response);
+    }
+    
+    private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
+        response.setStatus(status);
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+			response.getWriter().write("{\"status\":" + status + ",\"message\":\"" + message + "\"}");
+		} catch (java.io.IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
 
