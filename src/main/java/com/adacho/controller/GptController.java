@@ -5,6 +5,7 @@ import java.util.List;
 
 //✅ 바르게 변경
 import org.json.JSONException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class GptController {
 	}
 
 	@PostMapping("/input")
-	public ResponseEntity<GptResponseDto> requestGpt(@RequestBody RequestGptDto requestGptDto,
+	public ResponseEntity<?> requestGpt(@RequestBody RequestGptDto requestGptDto,
 			@RequestHeader("Authorization") String authHeader)
 			throws JsonMappingException, JsonProcessingException, JSONException {
 
@@ -46,7 +47,14 @@ public class GptController {
 		String userInput = requestGptDto.getInput();
 		List<Integer> recommandList = new ArrayList<Integer>();
 		
-		recommandList = inputService.getRecommand(userInput);
+		try {
+			recommandList = inputService.getRecommand(userInput);
+		}catch (Exception e){
+	        e.printStackTrace();
+	        
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("서버 오류가 발생했습니다.");
+		}
 
 
 		gptResponseDto = gptService.getGptComment(userInput, recommandList);
