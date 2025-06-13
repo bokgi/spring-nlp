@@ -45,18 +45,9 @@ public class GptController {
 		
 		String userInput = requestGptDto.getInput();
 		List<Integer> recommandList = new ArrayList<Integer>();
-		try {
-			recommandList = inputService.getRecommand(userInput);
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		recommandList = inputService.getRecommand(userInput);
+
 
 		gptResponseDto = gptService.getGptComment(userInput, recommandList);
 
