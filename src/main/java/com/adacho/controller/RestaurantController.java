@@ -20,6 +20,7 @@ public class RestaurantController {
 	
     @GetMapping("/search")
     public ResponseEntity<RestaurantInfo> getRestaurantById(@RequestParam int id) {
+    	System.out.println("*** /restaurant/search에서 응답보냄 ***");
         return restaurantRepository.findByRestaurantId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
