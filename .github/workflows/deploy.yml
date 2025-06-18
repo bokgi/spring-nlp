@@ -47,7 +47,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker stop wish-app || true
-          docker rm wish-app || true
-          docker load < /home/ubuntu/bokgi/nlp-app.tar
-          docker run -d --name nlp-app -p 8081:8081 nlp-app
+          sudo docker stop wish-app || true
+          sudo docker rm wish-app || true
+          sudo docker load < /home/ubuntu/bokgi/nlp-app.tar
+          sudo docker run -d --name nlp-app -p 8081:8081 nlp-app
