@@ -20,7 +20,16 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package -DskipTests
+      
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build Docker image
+      run: docker build -t nlp-app .
 
+    - name: Save Docker image to tar file
+      run: docker save nlp-app > nlp-app.tar
+      
     - name: Copy JAR to Server via SSH
       uses: appleboy/scp-action@v0.1.4
       with:
@@ -38,4 +47,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          bash /home/ubuntu/bokgi/start-nlp.sh
+          docker stop wish-app || true
+          docker rm wish-app || true
+          docker load < /home/ubuntu/bokgi/nlp-app.tar
+          docker run -d --name nlp-app -p 8081:8081 nlp-app
