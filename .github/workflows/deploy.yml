@@ -30,6 +30,9 @@ jobs:
     - name: Save Docker image to tar file
       run: docker save nlp-app > nlp-app.tar
       
+    - name: Check if TAR file exists
+      run: ls -al
+      
     - name: Copy TAR to Server via SSH
       uses: appleboy/scp-action@v0.1.4
       with:
