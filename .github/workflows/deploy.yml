@@ -38,7 +38,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         source: nlp-app.jar
         target: /home/ubuntu/bokgi
-        strip_components: 1
 
     - name: Run NlpService on Server
       uses: appleboy/ssh-action@master
