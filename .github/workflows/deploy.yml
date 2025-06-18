@@ -50,4 +50,4 @@ jobs:
           sudo docker stop wish-app || true
           sudo docker rm wish-app || true
           sudo docker load < /home/ubuntu/bokgi/nlp-app.tar
-          sudo docker run -d --name nlp-app -p 8081:8081 nlp-app
+          sudo docker run -d --name nlp-app --network my-network -p 8081:8081 nlp-app
