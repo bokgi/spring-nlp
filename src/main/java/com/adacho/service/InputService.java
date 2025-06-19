@@ -36,7 +36,7 @@ public class InputService {
 		// RestTemplate 사용 예시
 		RestTemplate restTemplate = new RestTemplate();
 		String query = nlp;
-		String url = "find-recommand-app/search";
+		String url = "http://find-recommand-app:5000/search";
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
