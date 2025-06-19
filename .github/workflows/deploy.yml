@@ -52,4 +52,4 @@ jobs:
           sudo docker stop nlp-app || true
           sudo docker rm nlp-app || true
           sudo docker load < /home/ubuntu/bokgi/nlp-app.tar
-          sudo docker run -d --name nlp-app --network my-network -p 8081:8081 nlp-app
+          sudo docker run -d --name nlp-app --network my-network -p 8081:8081 -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} nlp-app
