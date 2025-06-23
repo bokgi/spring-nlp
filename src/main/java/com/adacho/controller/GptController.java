@@ -57,7 +57,7 @@ public class GptController {
 		}
 
 
-		gptResponseDto = gptService.getGptComment(userInput, recommandList);
+		gptResponseDto = gptService.getGptComment(userInput);
 
 		for (int i = 0; i < gptResponseDto.getGptResponseList().size(); i++) {
 			System.out.println(i + "번째 요소 : " + gptResponseDto.getGptResponseList().get(i));
