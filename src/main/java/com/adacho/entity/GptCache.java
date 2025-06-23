@@ -21,10 +21,10 @@ public class GptCache {
     private String hash;
 
     @Lob
-    @Column(name = "restaurant_list")
+    @Column(name = "restaurant_list", columnDefinition = "LONGTEXT")
     private String restaurantListJson;
 
     @Lob
-    @Column(name = "gpt_response_list")
+    @Column(name = "gpt_response_list", columnDefinition = "LONGTEXT")
     private String gptResponseListJson;
 }
