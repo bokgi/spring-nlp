@@ -32,6 +32,7 @@ public class SecurityConfig {
         	.cors(cors -> cors.disable()) // cors 설정 사용
             .csrf(csrf -> csrf.disable())    // csrf 비활성화
             .authorizeHttpRequests(auth -> auth
+            	.requestMatchers("/api/gpt/input").permitAll()
             	.requestMatchers("/api/gpt/**").authenticated()
             	.requestMatchers("/restaurant/**").permitAll()
                 .anyRequest().authenticated()

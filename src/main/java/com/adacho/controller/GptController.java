@@ -34,15 +34,17 @@ public class GptController {
 
 	@PostMapping("/input")
 	public ResponseEntity<?> requestGpt(@RequestBody RequestGptDto requestGptDto,
-			@RequestHeader("Authorization") String authHeader)
+			@RequestHeader(value = "Authorization", required = false) String authHeader)
 			throws JsonMappingException, JsonProcessingException, JSONException {
 
-		System.out.println("유효한 토큰임을 확인했습니다.");
-		
-		String token = authHeader.replace("Bearer ", "");
-		
-		System.out.println("GptController authHeader: " + authHeader);
-		System.out.println("GptController token: " + token);
+	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+	        String token = authHeader.replace("Bearer ", "");
+	        System.out.println("유효한 토큰임을 확인했습니다.");
+	        System.out.println("GptController authHeader: " + authHeader);
+	        System.out.println("GptController token: " + token);
+	    } else {
+	        System.out.println("토큰 없이 요청됨");
+	    }
 		
 		String userInput = requestGptDto.getInput();
 
