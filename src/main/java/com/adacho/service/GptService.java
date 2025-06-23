@@ -55,6 +55,7 @@ public class GptService {
 
 		if (cachedOpt.isPresent()) {
 	        GptCache cached = cachedOpt.get();
+	        System.out.println("**해시 찾았음.. 결과 바로 리턴합니다.***");
 
 	        try {
 	            ObjectMapper objectMapper = new ObjectMapper();
@@ -81,6 +82,8 @@ public class GptService {
 		}
 
 		int i = 0;
+		
+        System.out.println("**해시 못 찾았음.. 결과를 생성하고 리턴합니다.***");
 
 		List<Integer> recommandList = inputService.getRecommand(userInput);
 		List<RestaurantInfo> restaurantList = inputService.getRestaurantInfo(recommandList);
