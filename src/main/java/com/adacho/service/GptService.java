@@ -84,7 +84,7 @@ public class GptService {
 		int i = 0;
 		
         System.out.println("**해시 못 찾았음.. 결과를 생성하고 리턴합니다.***");
-
+        
 		List<Integer> recommandList = inputService.getRecommand(userInput);
 		List<RestaurantInfo> restaurantList = inputService.getRestaurantInfo(recommandList);
 		restaurantList.sort((a, b) -> Double.compare(b.getRating(), a.getRating()));

@@ -45,19 +45,16 @@ public class GptController {
 		System.out.println("GptController token: " + token);
 		
 		String userInput = requestGptDto.getInput();
-		List<Integer> recommandList = new ArrayList<Integer>();
+
 		
 		try {
-			recommandList = inputService.getRecommand(userInput);
-		}catch (Exception e){
+			gptResponseDto = gptService.getGptComment(userInput);
+		}catch(Exception e){
 	        e.printStackTrace();
 	        
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                .body("서버 오류가 발생했습니다.");
 		}
-
-
-		gptResponseDto = gptService.getGptComment(userInput);
 
 		for (int i = 0; i < gptResponseDto.getGptResponseList().size(); i++) {
 			System.out.println(i + "번째 요소 : " + gptResponseDto.getGptResponseList().get(i));
