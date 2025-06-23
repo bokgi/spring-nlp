@@ -14,12 +14,7 @@ public interface GptCacheRepository extends JpaRepository<GptCache, String> {
     
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM gpt_cache WHERE created_at < NOW() - INTERVAL ?1 DAY", nativeQuery = true)
-    void deleteOlderThanDays(int days);
+    @Query(value = "DELETE FROM gpt_cache WHERE created_at < NOW() - INTERVAL ?1 HOUR", nativeQuery = true)
+    void deleteOlderThanHalfdays(int days);
     
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM gpt_cache WHERE created_at < NOW() - INTERVAL 1 MINUTE", nativeQuery = true)
-    void deleteOlderThanOneMinute();
-
 }
