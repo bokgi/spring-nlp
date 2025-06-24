@@ -14,10 +14,9 @@ public class CacheCleaner {
         this.gptCacheRepository = gptCacheRepository;
     }
 
-    @Scheduled(cron = "0 0 * * * *") // 매일 새벽 3시
+    @Scheduled(cron = "0 0 * * * *") // 1시간 마다
     public void clearOldCache() {
-        //gptCacheRepository.deleteOlderThanDays(1); // 1일 지난 캐시 삭제
-    	gptCacheRepository.deleteOlderThanHalfdays(12);
+    	gptCacheRepository.deleteOlderThanHalfdays(6);
         System.out.println("[캐시 청소] 오래된 GPT 캐시 삭제 완료");
     }
 }
